@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
-# This file tags and uploads an image to Docker Hub
 
-# Assumes that an image is built via `run_docker.sh`
+# Define dockerpath
+dockerpath=chrisk14/udacity-ml-api
 
-# Step 1:
-# Create dockerpath
-# dockerpath=<your docker ID/path>
-
-# Step 2:  
 # Authenticate & tag
+docker login
 echo "Docker ID and Image: $dockerpath"
 
-# Step 3:
 # Push image to a docker repository
+docker push $dockerpath
