@@ -1,1 +1,7 @@
-<paste log output from Kubernetes-mediated prediction, here>
+pod/boston-house-price-predictor created
+NAME                           READY   STATUS              RESTARTS   AGE
+boston-house-price-predictor   0/1     ContainerCreating   0          0s
+INFO: Going to sleep for 3mins. Allowing pod to run...
+Forwarding from 127.0.0.1:8000 -> 5000
+Forwarding from [::1]:8000 -> 5000
+Handling connection for 8000

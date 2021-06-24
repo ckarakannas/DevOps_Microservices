@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
-# This tags and uploads an image to Docker Hub
+# Define dockerpath
+dockerpath=chrisk14/udacity-ml-api
 
-# Step 1:
-# This is your Docker ID/path
-# dockerpath=<>
-
-# Step 2
 # Run the Docker Hub container with kubernetes
+kubectl run boston-house-price-predictor \
+    --image=$dockerpath \
+    --port=5000 \
+    --labels app=udacity-ml-api
 
-
-# Step 3:
 # List kubernetes pods
+kubectl get pods
 
-# Step 4:
+# Sleep for 3mins to allow pod to get up and running
+echo "INFO: Going to sleep for 3mins. Allowing pod to run..."
+sleep 180
+
 # Forward the container port to a host
-
+kubectl port-forward boston-house-price-predictor 8000:5000
