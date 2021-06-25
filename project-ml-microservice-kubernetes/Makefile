@@ -4,9 +4,12 @@ setup:
 	# source ~/.devops/bin/activate
 
 install:
-	# This should be run from inside a virtualenv
 	pip install --upgrade pip &&\
 		pip install -r requirements/dev.txt
+
+install-prod:
+	pip install --upgrade pip &&\
+		pip install -r requirements.txt
 
 lint:
 	# Hadolint for Dockerfiles
