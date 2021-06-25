@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-PORT=8000
+if [[ "$1" =~ "local" ]]
+then
+  PORT=5000
+else
+  PORT=8000
+fi
 echo "Port: $PORT"
 
 # POST method predict
