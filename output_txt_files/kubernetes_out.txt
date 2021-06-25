@@ -5,3 +5,13 @@ INFO: Going to sleep for 3mins. Allowing pod to run...
 Forwarding from 127.0.0.1:8000 -> 5000
 Forwarding from [::1]:8000 -> 5000
 Handling connection for 8000
+
+# make_prediction.sh console output
+
+./make_prediction.sh
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
