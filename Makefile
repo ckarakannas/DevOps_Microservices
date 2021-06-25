@@ -17,4 +17,8 @@ lint:
 	# Pylint for python app
 	pylint --disable=R,C,W1203 app.py
 
+lint-no-docker:
+	hadolint Dockerfile
+	pylint --disable=R,C,W1203 app.py
+
 all: install lint

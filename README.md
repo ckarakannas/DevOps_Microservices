@@ -23,11 +23,7 @@ The application is based on Python Flask, contained within the main `app.py` fil
   source ~/.devops/bin/activate
   ```
 * Run `make install` to install the necessary dependencies from within the virtual env
-* Assuming you have Docker installed and running, run `make lint` for lint checking. Otherwise install [hadolint](https://github.com/hadolint/hadolint) manually and run
-  ```
-  hadolint Dockerfile
-  pylint --disable=R,C,W1203 app.py
-  ```
+* Assuming you have Docker installed and running, run `make lint` for lint checking. Otherwise install [hadolint](https://github.com/hadolint/hadolint) manually and run `make lint-no-docker`
 ### Running `app.py`
 
 1. Standalone:  `python3 app.py`
