@@ -1,42 +1,74 @@
-<include a CircleCI status badge, here>
+[![ckarakannas](https://circleci.com/gh/ckarakannas/DevOps_Microservices.svg?style=svg)](https://circleci.com/gh/ckarakannas/DevOps_Microservices/?branch=project-submission)
 
-## Project Overview
+## Project Summary
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
+This project operationalizes a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the popular Boston dataset, which is taken from Kaggle from [this data source site](https://www.kaggle.com/c/boston-housing). 
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
-
-### Project Tasks
-
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
-
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
-
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
+The application is based on Python Flask, contained within the main `app.py` file that serves out predictions (inference) about housing prices through API calls.
 
 ## Setup the Environment
-
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
-
+* Prerequisites: 
+  * Modern Linux/macOS distribution. For Windows, best to use WSL2 or a Linux-like environment.
+  * Python 3.7 (tested with 3.7.10)
+  * Docker Desktop (latest version)
+  * Kind or Minikube
+* Clone the git repository and cd into the project folder
+  ```
+  git clone https://github.com/ckarakannas/DevOps_Microservices.git
+  cd DevOps_Microservices
+  ```
+* Create a virtualenv in ~/.devops and activate it
+  ```
+  make setup
+  source ~/.devops/bin/activate
+  ```
+* Run `make install` to install the necessary dependencies from within the virtual env
+* Assuming you have Docker installed and running, run `make lint` for lint checking. Otherwise install [hadolint](https://github.com/hadolint/hadolint) manually and run
+  ```
+  hadolint Dockerfile
+  pylint --disable=R,C,W1203 app.py
+  ```
 ### Running `app.py`
 
-1. Standalone:  `python app.py`
+1. Standalone:  `python3 app.py`
 2. Run in Docker:  `./run_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
 
+### Making predictions whilst app is running
+
+1. When running locally: `./make_predictions.sh local`
+2. When running on Docker: `./make_prediction.sh`
+3. When running on K8S pod: `./make_prediction.sh`
+
 ### Kubernetes Steps
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+* Setup and Configure Docker Desktop locally
+* Setup and Configure Kubernetes locally. Preferred method is via installing using [Kind](https://kind.sigs.k8s.io/)
+* Once kind is installed, create a [multi-node cluster](https://kind.sigs.k8s.io/docs/user/quick-start/#multinode-clusters)
+* Run `./run_kubernetes.sh` to deploy API pod
+* Open another window or terminal and run `./make_prediction.sh` to make predictions. Feel free to change the date within the file
+
+## File structure explanation
+
+```
+├── Dockerfile -- # file for building docker image
+├── Makefile -- # convenience makefile
+├── README.md -- # readme
+├── app.py -- # main Flask app API script
+├── make_prediction.sh -- # script for making predictions
+├── model_data -- # boston raw data and pretrained model
+│   ├── boston_housing_prediction.joblib
+│   └── housing.csv
+├── output_txt_files -- # output logs 
+│   ├── docker_out.txt
+│   └── kubernetes_out.txt
+├── requirements -- # files for installing python dependencies
+│   ├── common.txt
+│   ├── dev.txt
+│   └── prod.txt
+├── requirements.txt -- # link to prod dependencies
+├── run_docker.sh -- # running app in Docker container
+├── run_kubernetes.sh -- # running app in K8S pod
+└── upload_docker.sh -- # uploading Docker image on DockerHub
+```
+
